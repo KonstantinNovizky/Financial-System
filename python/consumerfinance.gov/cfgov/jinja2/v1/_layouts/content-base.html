@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content scoped %}
+    <main class="content {% block content_modifiers -%}{%- endblock %}"
+          id="main">
+        {% block hero -%}{%- endblock %}
+        {% block pre_content scoped -%}
+            {% if breadcrumb_items | length > 0 %}
+                <div class="wrapper content_wrapper">
+                {%- import 'molecules/breadcrumbs.html' as breadcrumbs -%}
+                {{ breadcrumbs.render(breadcrumb_items) }}
+                </div>
+            {% endif %}
+        {%- endblock %}
+        {% block body_content scoped -%}{%- endblock %}
+        {% block post_content scoped -%}{%- endblock %}
+    </main>
+{% endblock %}

@@ -1,0 +1,32 @@
+{# ==========================================================================
+
+   breadcrumbs.render()
+
+   ==========================================================================
+
+   Description:
+
+   Create breadcrumb markup when given:
+
+   breadcrumbs:        An array of tuples used to display nav items.
+                       Format: (href, live, title)
+
+   ========================================================================== #}
+
+{% macro render( breadcrumbs ) %}
+    <nav class="breadcrumbs" aria-label="{{ _('Breadcrumbs') }}">
+        {{ svg_icon('left') }}
+        {% for crumb in breadcrumbs %}
+            {% if crumb.href or crumb.live %}
+                <a class="breadcrumbs_link" href="{{ crumb.href if crumb.href else pageurl(crumb) }}">
+                    {{ crumb.title | e }}
+                </a>
+            {% else %}
+                <span class="breadcrumbs_text">{{ crumb.title | e }}</span>
+            {% endif %}
+        {% endfor %}
+        {% if page and page.archived %}
+          <span class="breadcrumbs_link">Archive</span>
+        {% endif %}
+    </nav>
+{% endmacro %}
